@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Variables
+REPO_DIR="https://alanglol.github.io/gamehub.github.io"
+NEW_PAGE="beanyweeny.html"
+NEW_FOLDER="beanyweeny_files"
+
+# Check if the repository directory exists
+if [ ! -d "$REPO_DIR" ]; then
+  echo "Repository directory $REPO_DIR does not exist."
+  exit 1
+fi
+
+# Navigate to the repository directory
+cd "$REPO_DIR" || exit
+
+# Create the new HTML file
+cat <<EOL > "$NEW_PAGE"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beany Weeny</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="beanyweeny.html">Beany Weeny</a>
+        <!-- Add more links as needed -->
+    </nav>
+    <h1>Beany Weeny</h1>
+    <p>This is the Beany Weeny page content.</p>
+</body>
+</html>
+EOL
+
+# Create the new folder and add a sample file
+mkdir -p "$NEW_FOLDER"
+echo "This is a sample file for the Beany Weeny page." > "$NEW_FOLDER/sample.txt"
+
+# Add the new files to the repository
+git add "$NEW_PAGE" "$NEW_FOLDER"
+
+# Commit the changes
+git commit -m "Add Beany Weeny page and assets folder"
+
+# Push the changes to GitHub
+git push origin main
+
+echo "New page and assets folder added to GitHub Pages site."
